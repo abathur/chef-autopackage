@@ -1,6 +1,6 @@
 autopackage Cookbook
 ====================
-Installs a list/array of packages with the `package` resource without needing a custom recipe. Most useful for installing packages from vagrant with `chef.json` or via a data bag definition.
+Installs a list/array of packages with the `package` resource without needing a custom recipe. Most useful for installing packages from vagrant with `chef.json` or via a data bag.
 
 Attributes
 ----------
@@ -22,7 +22,10 @@ Attributes
 Usage
 -----
 In your Cheffile:
+
+```ruby
 cookbook "autopackage", :git => "https://github.com/abathur/chef-autopackage.git"
+```
 
 In your Vagrantfile:
 
