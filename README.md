@@ -21,15 +21,20 @@ Attributes
 
 Usage
 -----
+In your Cheffile:
+cookbook "autopackage", :git => "https://github.com/abathur/chef-autopackage.git"
+
 In your Vagrantfile:
 
-```config.vm.provision :chef_solo do |chef|
+```ruby
+config.vm.provision :chef_solo do |chef|
     chef.json = {
       "autopackage" => ["git-svn", "libsqlite3-dev", "libjson0-dev", "libpcre3-dev"]
     }
     chef.add_recipe("autopackage")
-  end
+end
 ```
+
 
 License and Authors
 -------------------
