@@ -1,6 +1,6 @@
 autopackage Cookbook
 ====================
-Installs a list/array of packages with the `package` resource without needing a custom recipe. Most useful for installing packages from vagrant with `chef.json` or via a data bag.
+Installs packages without needing a custom recipe. Most useful for installing packages from vagrant with `chef.json` or via a data bag for development projects where you are fleshing out requirements and aren't quite ready for writing custom recipes (or for light/personal use cases where writing a recipe makes little sense at all).
 
 Attributes
 ----------
@@ -13,15 +13,15 @@ Attributes
   </tr>
   <tr>
     <td><tt>['autopackage']</tt></td>
-    <td>List</td>
-    <td>A list of string package names which will be passed to the `package` resource.</td>
+    <td>Hash</td>
+    <td>A hash of resources which contains hashes of packages and settings.</td>
     <td><tt>nil</tt></td>
   </tr>
 </table>
 
 Usage
 -----
-In your Cheffile:
+If using Librarian-chef, put in your Cheffile:
 
 ```ruby
 cookbook "autopackage", :git => "https://github.com/abathur/chef-autopackage.git"
@@ -32,7 +32,13 @@ In your Vagrantfile:
 ```ruby
 config.vm.provision :chef_solo do |chef|
     chef.json = {
-      "autopackage" => ["git-svn", "libsqlite3-dev", "libjson0-dev", "libpcre3-dev"]
+      "autopackage" => {
+        "gem_package" => {
+          "rspec" => {"priority" => "pre"},
+          "serverspec" => {"priority" => "normal"},
+          "test-kitchen" => {"priority" => "normal"}
+        }
+      }
     }
     chef.add_recipe("autopackage")
 end
@@ -42,3 +48,4 @@ end
 License and Authors
 -------------------
 Author: Travis A. Everett
+License: Apache 2.0
